@@ -182,8 +182,8 @@ const ZKVault = {
             const proof = await zeroKnowledge.createVaultAccessProof(password, this.salt);
             this.commitment = proof.commitment;
 
-            // Derive encryption key
-            this.masterKey = await e2eeCrypto.deriveKeyFromPassword(password, this.salt);
+            // Derive encryption key (with caching)
+            this.masterKey = await cachedCrypto.deriveKeyFromPassword(password, this.salt);
 
             // Save metadata (NOT the password!)
             this.saveVaultMetadata();
@@ -253,12 +253,18 @@ const ZKVault = {
         }
     },
 
+
     /**
      * Lock vault
      */
     lockVault() {
         // Stop session timeout
         this.stopSessionTimeout();
+
+        // Clear key cache for security
+        if (typeof cachedCrypto !== 'undefined') {
+            cachedCrypto.clearCache();
+        }
 
         this.isUnlocked = false;
         this.masterKey = null;
@@ -267,6 +273,7 @@ const ZKVault = {
         this.showNotification('🔒 Vault bloqueado', 'info');
         document.getElementById('modalBody').innerHTML = this.init();
     },
+
 
     /**
      * Start session timeout monitoring
@@ -305,6 +312,11 @@ const ZKVault = {
 
         localStorage.removeItem('zk_vault_metadata');
         localStorage.removeItem('zk_vault_data');
+
+        // Clear key cache
+        if (typeof cachedCrypto !== 'undefined') {
+            cachedCrypto.clearCache();
+        }
 
         this.isUnlocked = false;
         this.masterKey = null;
