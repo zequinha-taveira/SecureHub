@@ -67,6 +67,26 @@ Uma plataforma web moderna e completa que unifica múltiplas ferramentas de segu
 - Recomendações detalhadas
 - Verificação de práticas recomendadas
 
+### 💬 E2EE Messenger
+- Mensagens criptografadas de ponta a ponta
+- Troca de chaves usando ECDH (curvas elípticas P-256)
+- Criptografia AES-256-GCM para mensagens
+- Gerenciamento de contatos e chaves públicas
+- Verificação de identidade via fingerprints
+- Exportação/importação de chaves para backup
+- Histórico local de mensagens criptografadas
+- 100% client-side, sem servidor intermediário
+
+### 🔐 Zero-Knowledge Vault
+- Cofre de dados com autenticação zero-knowledge
+- Senha mestra nunca é armazenada ou transmitida
+- Armazenamento criptografado de senhas, notas e documentos
+- Provas criptográficas de conhecimento sem revelar dados
+- Demonstração de verificação de idade sem revelar data de nascimento
+- Demonstração de provas de atributos
+- Derivação de chaves usando PBKDF2 (100.000 iterações)
+- Arquitetura zero-knowledge verdadeira
+
 ## 🎨 Design
 
 - **Interface Moderna**: Design premium com glassmorphism e gradientes vibrantes
@@ -111,7 +131,11 @@ SecureHub/
 │   ├── encryption.js              # Criptografia
 │   ├── token-generator.js         # Gerador de tokens
 │   ├── breach-checker.js          # Verificador de vazamentos
-│   └── vulnerability-scanner.js   # Scanner de vulnerabilidades
+│   ├── vulnerability-scanner.js   # Scanner de vulnerabilidades
+│   ├── e2ee-crypto.js             # Criptografia E2EE (ECDH + AES-256-GCM)
+│   ├── zero-knowledge.js          # Provas zero-knowledge
+│   ├── e2ee-messenger.js          # Interface de mensagens E2EE
+│   └── zk-vault.js                # Cofre zero-knowledge
 └── README.md               # Documentação
 ```
 
