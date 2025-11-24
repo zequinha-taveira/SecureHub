@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ferramenta de Segurança Unificada - Plataforma completa com múltiplas ferramentas de segurança digital">
+    <meta name="keywords" content="segurança, criptografia, senhas, hash, scanner, privacidade">
+    <title>SecureHub - Ferramenta de Segurança Unificada</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L3 7V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h1>SecureHub</h1>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 1V3M12 21V23M23 12H21M3 12H1M20.49 20.49L19.07 19.07M4.93 4.93L3.51 3.51M20.49 3.51L19.07 4.93M4.93 19.07L3.51 20.49" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h2 class="hero-title">Ferramentas de Segurança Profissionais</h2>
+                <p class="hero-subtitle">Tudo que você precisa para proteger seus dados em um só lugar</p>
+            </section>
+
+            <!-- Tools Grid -->
+            <section class="tools-grid">
+                <!-- Password Generator -->
+                <div class="tool-card" data-tool="password-generator">
+                    <div class="tool-icon">🔐</div>
+                    <h3 class="tool-title">Gerador de Senhas</h3>
+                    <p class="tool-description">Crie senhas fortes e seguras com opções personalizáveis</p>
+                    <button class="tool-button" onclick="openTool('password-generator')">Abrir</button>
+                </div>
+
+                <!-- Password Strength -->
+                <div class="tool-card" data-tool="password-strength">
+                    <div class="tool-icon">💪</div>
+                    <h3 class="tool-title">Verificador de Senha</h3>
+                    <p class="tool-description">Analise a força e segurança das suas senhas</p>
+                    <button class="tool-button" onclick="openTool('password-strength')">Abrir</button>
+                </div>
+
+                <!-- URL Scanner -->
+                <div class="tool-card" data-tool="url-scanner">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Scanner de URLs</h3>
+                    <p class="tool-description">Verifique a segurança de links e detecte phishing</p>
+                    <button class="tool-button" onclick="openTool('url-scanner')">Abrir</button>
+                </div>
+
+                <!-- Hash Verifier -->
+                <div class="tool-card" data-tool="hash-verifier">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Verificador de Hash</h3>
+                    <p class="tool-description">Gere e verifique checksums e hashes de arquivos</p>
+                    <button class="tool-button" onclick="openTool('hash-verifier')">Abrir</button>
+                </div>
+
+                <!-- Encryption -->
+                <div class="tool-card" data-tool="encryption">
+                    <div class="tool-icon">🔒</div>
+                    <h3 class="tool-title">Criptografia</h3>
+                    <p class="tool-description">Criptografe e descriptografe textos com segurança</p>
+                    <button class="tool-button" onclick="openTool('encryption')">Abrir</button>
+                </div>
+
+                <!-- Token Generator -->
+                <div class="tool-card" data-tool="token-generator">
+                    <div class="tool-icon">🎫</div>
+                    <h3 class="tool-title">Gerador de Tokens</h3>
+                    <p class="tool-description">Gere tokens, API keys e identificadores únicos</p>
+                    <button class="tool-button" onclick="openTool('token-generator')">Abrir</button>
+                </div>
+
+                <!-- Breach Checker -->
+                <div class="tool-card" data-tool="breach-checker">
+                    <div class="tool-icon">🚨</div>
+                    <h3 class="tool-title">Verificador de Vazamentos</h3>
+                    <p class="tool-description">Verifique se seus dados foram expostos em vazamentos</p>
+                    <button class="tool-button" onclick="openTool('breach-checker')">Abrir</button>
+                </div>
+
+                <!-- Vulnerability Scanner -->
+                <div class="tool-card" data-tool="vulnerability-scanner">
+                    <div class="tool-icon">🛡️</div>
+                    <h3 class="tool-title">Scanner de Vulnerabilidades</h3>
+                    <p class="tool-description">Analise cabeçalhos de segurança e configurações SSL</p>
+                    <button class="tool-button" onclick="openTool('vulnerability-scanner')">Abrir</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Tool Modals -->
+    <div id="toolModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Tool content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script src="modules/password-generator.js"></script>
+    <script src="modules/password-strength.js"></script>
+    <script src="modules/url-scanner.js"></script>
+    <script src="modules/hash-verifier.js"></script>
+    <script src="modules/encryption.js"></script>
+    <script src="modules/token-generator.js"></script>
+    <script src="modules/breach-checker.js"></script>
+    <script src="modules/vulnerability-scanner.js"></script>
+</body>
+</html>
