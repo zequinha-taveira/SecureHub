@@ -61,6 +61,9 @@ function openTool(toolName) {
         case 'zk-vault':
             loadZKVault();
             break;
+        case 'backup-system':
+            loadBackupSystem();
+            break;
         default:
             modalTitle.textContent = 'Ferramenta não encontrada';
             modalBody.innerHTML = '<p>Esta ferramenta ainda não está disponível.</p>';
@@ -274,19 +277,6 @@ function loadE2EEMessenger() {
     // Render user profile if exists
     if (E2EEMessenger.currentUser) {
         E2EEMessenger.renderUserProfile();
-        E2EEMessenger.renderContacts();
-    }
-}
-
-function loadZKVault() {
-    modalTitle.textContent = '🔐 Zero-Knowledge Vault';
-    modalBody.innerHTML = ZKVault.init();
-}
-
-// ============================================
-// INITIALIZATION
-// ============================================
-
-console.log('SecureHub initialized');
-console.log('Theme:', savedTheme);
+        console.log('SecureHub initialized');
+        console.log('Theme:', savedTheme);
 
