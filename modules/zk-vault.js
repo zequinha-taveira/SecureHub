@@ -210,6 +210,13 @@ const ZKVault = {
             return;
         }
 
+        // Check rate limit
+        const rateCheck = securityManager.checkRateLimit('vault-unlock');
+        if (!rateCheck.allowed) {
+            alert(`⚠️ ${rateCheck.message}`);
+            return;
+        }
+
         try {
             // Create ZK proof
             const proof = await zeroKnowledge.createVaultAccessProof(password, this.salt);
@@ -218,9 +225,12 @@ const ZKVault = {
             const isValid = zeroKnowledge.verifyVaultAccessProof(proof, this.commitment);
 
             if (!isValid) {
-                alert('❌ Senha incorreta');
+                alert(`❌ Senha incorreta (${rateCheck.attemptsLeft} tentativas restantes)`);
                 return;
             }
+
+            // Success - reset rate limit
+            securityManager.resetRateLimit('vault-unlock');
 
             // Derive encryption key
             this.masterKey = await e2eeCrypto.deriveKeyFromPassword(password, this.salt);
@@ -229,6 +239,10 @@ const ZKVault = {
             await this.loadVaultData();
 
             this.isUnlocked = true;
+
+            // Start session timeout
+            this.startSessionTimeout();
+
             this.showNotification('✅ Vault desbloqueado!', 'success');
 
             // Refresh UI
@@ -243,12 +257,42 @@ const ZKVault = {
      * Lock vault
      */
     lockVault() {
+        // Stop session timeout
+        this.stopSessionTimeout();
+
         this.isUnlocked = false;
         this.masterKey = null;
         this.vaultData = { passwords: [], notes: [], documents: [] };
 
         this.showNotification('🔒 Vault bloqueado', 'info');
         document.getElementById('modalBody').innerHTML = this.init();
+    },
+
+    /**
+     * Start session timeout monitoring
+     */
+    startSessionTimeout() {
+        securityManager.startSession(
+            // On timeout
+            () => {
+                this.lockVault();
+                alert('⏰ Sessão expirada por inatividade. O vault foi bloqueado.');
+            },
+            // On warning (1 minute before timeout)
+            (secondsLeft) => {
+                this.showNotification(
+                    `⏰ Sessão expira em ${secondsLeft} segundos. Mova o mouse para estender.`,
+                    'warning'
+                );
+            }
+        );
+    },
+
+    /**
+     * Stop session timeout monitoring
+     */
+    stopSessionTimeout() {
+        securityManager.stopSession();
     },
 
     /**
